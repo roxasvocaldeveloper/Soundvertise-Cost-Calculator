@@ -30,38 +30,40 @@
             margin: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Spostato in alto invece che al centro */
             min-height: 100vh;
+            padding-top: 2vh; /* Margine minimo superiore */
             overflow: hidden;
         }
 
         .main-wrapper {
             width: 95%;
             max-width: 1250px;
-            height: 92vh;
+            height: 88vh; /* Leggermente ridotto per non toccare il fondo */
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
 
         header {
             text-align: center;
             flex-shrink: 0;
+            padding-bottom: 5px;
         }
 
         header img {
-            max-width: 180px;
+            max-width: 160px; /* Leggermente più piccolo */
             height: auto;
             filter: brightness(1.1);
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .main-title {
             text-align: center;
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 800;
             letter-spacing: -0.02em;
-            margin: 0 0 10px 0;
+            margin: 0 0 5px 0;
             background: linear-gradient(to bottom, #fff, #aaa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -82,7 +84,7 @@
             -webkit-backdrop-filter: blur(30px) saturate(150%);
             border: 1px solid var(--border);
             border-radius: 28px;
-            padding: 32px;
+            padding: 28px;
             display: flex;
             flex-direction: column;
             min-height: 0;
@@ -90,8 +92,8 @@
         }
 
         h2 {
-            font-size: 0.9rem;
-            margin: 0 0 24px 0;
+            font-size: 0.85rem;
+            margin: 0 0 20px 0;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.2em;
@@ -113,7 +115,7 @@
             overflow-y: auto;
             flex-grow: 1;
             padding-right: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .info-note {
@@ -121,8 +123,8 @@
             border: 1px solid rgba(157, 124, 255, 0.3);
             border-radius: 16px;
             padding: 16px;
-            margin-bottom: 24px;
-            font-size: 0.8rem;
+            margin-bottom: 20px;
+            font-size: 0.78rem;
             line-height: 1.5;
             color: #d1c4ff;
         }
@@ -137,8 +139,8 @@
 
         label {
             display: block;
-            margin: 20px 0 8px;
-            font-size: 0.75rem;
+            margin: 15px 0 8px;
+            font-size: 0.72rem;
             color: var(--text-dim);
             font-weight: 500;
             text-transform: uppercase;
@@ -147,13 +149,13 @@
 
         select {
             width: 100%;
-            padding: 14px 18px;
-            border-radius: 14px;
+            padding: 12px 16px;
+            border-radius: 12px;
             background: #141414;
             color: white;
             border: 1px solid var(--border);
             outline: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             appearance: none;
             cursor: pointer;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
@@ -169,17 +171,17 @@
 
         .playlist-card {
             background: var(--card-inner);
-            padding: 20px;
+            padding: 18px;
             border-radius: 20px;
-            margin-top: 24px;
-            margin-bottom: 16px;
+            margin-top: 18px;
+            margin-bottom: 14px;
             border: 1px solid var(--border);
         }
 
         .playlist-header {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             color: var(--text-main);
             letter-spacing: 0.05em;
         }
@@ -187,7 +189,7 @@
         .type-selector {
             display: flex;
             background: rgba(0,0,0,0.3);
-            padding: 5px;
+            padding: 4px;
             border-radius: 12px;
             gap: 5px;
         }
@@ -202,9 +204,9 @@
 
         .type-selector span {
             display: block;
-            padding: 10px;
+            padding: 8px;
             border-radius: 9px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-align: center;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             color: var(--text-dim);
@@ -217,30 +219,30 @@
         }
 
         .playlist-row {
-            padding: 16px 0;
+            padding: 12px 0;
             border-bottom: 1px solid var(--border);
         }
 
         .playlist-row:last-child { border-bottom: none; }
 
         .row-title {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             display: block;
         }
 
         .total-container {
             margin-top: auto;
-            padding: 24px;
+            padding: 20px;
             background: linear-gradient(135deg, rgba(157, 124, 255, 0.1), rgba(157, 124, 255, 0.02));
             border-radius: 24px;
             text-align: center;
             border: 1px solid var(--accent);
         }
 
-        .total-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 8px; color: var(--accent); font-weight: 700; }
-        .total-value { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.02em; }
+        .total-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 5px; color: var(--accent); font-weight: 700; }
+        .total-value { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; }
 
         .d-blue { color: #59dbff; }
         .d-fuchsia { color: #ff66ff; }
@@ -249,8 +251,8 @@
         .d-orange { color: #ff9800; }
 
         .discount-item {
-            font-size: 0.8rem;
-            margin-bottom: 14px;
+            font-size: 0.78rem;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -264,10 +266,10 @@
         ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
         @media (max-width: 1100px) {
-            body { overflow-y: auto; }
-            .main-wrapper { height: auto; padding: 40px 0; }
+            body { overflow-y: auto; align-items: flex-start; }
+            .main-wrapper { height: auto; padding: 20px 0; }
             .container { grid-template-columns: 1fr; height: auto; }
-            .panel { height: auto; min-height: 600px; }
+            .panel { height: auto; min-height: 500px; }
             .main-title { font-size: 1.8rem; }
         }
     </style>
@@ -334,12 +336,12 @@
         <div class="panel">
             <h2>DISCOUNTS</h2>
             <div class="scrollable-content">
-                <div style="font-weight: 700; font-size: 0.7rem; margin-bottom: 15px; letter-spacing: 0.1em; color: var(--accent);">VOLUME DISCOUNTS</div>
+                <div style="font-weight: 700; font-size: 0.65rem; margin-bottom: 15px; letter-spacing: 0.1em; color: var(--accent);">VOLUME DISCOUNTS</div>
                 <div class="discount-item"><div class="dot" style="background: #59dbff;"></div> <span><b class="d-blue">D1:</b> 2+ Playlists</span></div>
                 <div class="discount-item"><div class="dot" style="background: #ff66ff;"></div> <span><b class="d-fuchsia">D2:</b> 4+ Playlists</span></div>
                 <div class="discount-item"><div class="dot" style="background: #ff99cc;"></div> <span><b class="d-pink">D3:</b> 7+ Playlists</span></div>
                 
-                <div style="font-weight: 700; font-size: 0.7rem; margin: 30px 0 15px; letter-spacing: 0.1em; color: var(--accent);">MULTIPLE MONTH DISCOUNTS</div>
+                <div style="font-weight: 700; font-size: 0.65rem; margin: 25px 0 15px; letter-spacing: 0.1em; color: var(--accent);">MULTIPLE MONTH DISCOUNTS</div>
                 <div class="discount-item"><div class="dot" style="background: #ffee58;"></div> <span><b class="d-yellow">D1:</b> 4+ Months</span></div>
                 <div class="discount-item"><div class="dot" style="background: #ff9800;"></div> <span><b class="d-orange">D2:</b> 6+ Months</span></div>
             </div>
@@ -429,13 +431,13 @@
                     cost = pTable[`renew_${duration}_mesi`];
                 }
 
-                breakdown += `<div style="font-size:0.85rem; display:flex; justify-content:space-between; margin: 4px 0;">
+                breakdown += `<div style="font-size:0.82rem; display:flex; justify-content:space-between; margin: 3px 0;">
                     <span style="color:var(--text-dim)">Month ${m}</span> <span class="${mColor}" style="font-weight:600;">€${cost}</span>
                 </div>`;
                 playlistCost += cost;
             }
 
-            breakdown += `<div style="text-align:right; font-weight:700; margin-top:8px; font-size: 0.95rem; color: var(--accent);">Subtotal: €${playlistCost}</div></div>`;
+            breakdown += `<div style="text-align:right; font-weight:700; margin-top:8px; font-size: 0.9rem; color: var(--accent);">Subtotal: €${playlistCost}</div></div>`;
             detailsHtml += breakdown;
             totalCost += playlistCost;
         }
