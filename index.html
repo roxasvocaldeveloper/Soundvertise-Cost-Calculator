@@ -33,17 +33,17 @@
             justify-content: center;
             align-items: flex-start;
             min-height: 100vh;
-            padding-top: 1vh; /* Ridotto per alzare tutto */
+            padding-top: 1vh; 
             overflow: hidden;
         }
 
         .main-wrapper {
             width: 95%;
-            max-width: 1300px;
-            height: 94vh; /* Aumentato leggermente per sfruttare lo spazio */
+            max-width: 1400px; /* Slightly wider to accommodate side panels */
+            height: 88vh; /* Lifted further from bottom */
             display: flex;
             flex-direction: column;
-            gap: 10px; /* Ridotto il gap */
+            gap: 10px;
         }
 
         header {
@@ -57,7 +57,7 @@
         }
 
         header img {
-            max-width: 240px; /* Ulteriormente ingrandito */
+            max-width: 240px;
             height: auto;
             filter: brightness(1.1);
             margin-bottom: 5px;
@@ -78,8 +78,8 @@
 
         .container {
             display: grid;
-            /* Colonne di larghezza uguale per simmetria perfetta */
-            grid-template-columns: repeat(3, 1fr); 
+            /* Balanced ratio: Side panels approx 28%, Center approx 44% */
+            grid-template-columns: 1.1fr 1.8fr 1.1fr; 
             gap: 20px;
             height: 100%;
             min-height: 0;
@@ -263,7 +263,7 @@
         .total-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 4px; color: var(--accent); font-weight: 700; }
         .total-value { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; }
 
-        /* Colori degli sconti */
+        /* Discount Colors */
         .d-blue { color: #59dbff; }
         .d-fuchsia { color: #ff66ff; }
         .d-pink { color: #ff99cc; }
@@ -309,31 +309,31 @@
             <div class="scrollable-content">
                 <div class="info-note">
                     <b>Setup Fee Discount</b>
-                    Se la Playlist 1 è già attiva e ottimizzata, applichiamo uno sconto di €50 sulla quota iniziale.
+                    If Playlist 1 is already active and optimized, we apply a €50 discount on the initial fee.
                 </div>
 
-                <label>Numero di Playlist</label>
+                <label>Number of Playlists</label>
                 <select id="num-playlist" onchange="updatePlaylists()">
                     <option value="1">1 Playlist</option>
-                    <option value="2">2 Playlist</option>
-                    <option value="3">3 Playlist</option>
-                    <option value="4">4 Playlist</option>
-                    <option value="5">5 Playlist</option>
-                    <option value="6">6 Playlist</option>
-                    <option value="7">7 Playlist</option>
-                    <option value="8">8 Playlist</option>
-                    <option value="9">9 Playlist</option>
-                    <option value="10">10 Playlist</option>
+                    <option value="2">2 Playlists</option>
+                    <option value="3">3 Playlists</option>
+                    <option value="4">4 Playlists</option>
+                    <option value="5">5 Playlists</option>
+                    <option value="6">6 Playlists</option>
+                    <option value="7">7 Playlists</option>
+                    <option value="8">8 Playlists</option>
+                    <option value="9">9 Playlists</option>
+                    <option value="10">10 Playlists</option>
                 </select>
 
-                <label>Durata Promo</label>
+                <label>Promo Duration</label>
                 <select id="durata" onchange="calculateCost()">
-                    <option value="1">1 Mese</option>
-                    <option value="2">2 Mesi</option>
-                    <option value="3">3 Mesi</option>
-                    <option value="4">4 Mesi</option>
-                    <option value="5">5 Mesi</option>
-                    <option value="6">6 Mesi</option>
+                    <option value="1">1 Month</option>
+                    <option value="2">2 Months</option>
+                    <option value="3">3 Months</option>
+                    <option value="4">4 Months</option>
+                    <option value="5">5 Months</option>
+                    <option value="6">6 Months</option>
                 </select>
 
                 <div id="playlist-options"></div>
@@ -344,7 +344,7 @@
         <div class="panel">
             <h2>ESTIMATE COST</h2>
             <div id="summary-info" class="scrollable-content">
-                <!-- Contenuto generato automaticamente -->
+                <!-- Automatically generated content -->
             </div>
             <div class="total-container">
                 <div class="total-label">Total Service Cost</div>
@@ -357,13 +357,13 @@
             <h2>DISCOUNTS</h2>
             <div class="scrollable-content">
                 <div style="font-weight: 700; font-size: 0.65rem; margin-bottom: 15px; letter-spacing: 0.1em; color: var(--accent);">VOLUME DISCOUNTS</div>
-                <div class="discount-item"><div class="dot" style="background: #59dbff;"></div> <span><b class="d-blue">D1:</b> 2+ Playlist</span></div>
-                <div class="discount-item"><div class="dot" style="background: #ff66ff;"></div> <span><b class="d-fuchsia">D2:</b> 4+ Playlist</span></div>
-                <div class="discount-item"><div class="dot" style="background: #ff99cc;"></div> <span><b class="d-pink">D3:</b> 7+ Playlist</span></div>
+                <div class="discount-item"><div class="dot" style="background: #59dbff;"></div> <span><b class="d-blue">D1:</b> 2+ Playlists</span></div>
+                <div class="discount-item"><div class="dot" style="background: #ff66ff;"></div> <span><b class="d-fuchsia">D2:</b> 4+ Playlists</span></div>
+                <div class="discount-item"><div class="dot" style="background: #ff99cc;"></div> <span><b class="d-pink">D3:</b> 7+ Playlists</span></div>
                 
                 <div style="font-weight: 700; font-size: 0.65rem; margin: 25px 0 15px; letter-spacing: 0.1em; color: var(--accent);">MULTIPLE MONTH DISCOUNTS</div>
-                <div class="discount-item"><div class="dot" style="background: #ffee58;"></div> <span><b class="d-yellow">D1:</b> 4+ Mesi</span></div>
-                <div class="discount-item"><div class="dot" style="background: #ff9800;"></div> <span><b class="d-orange">D2:</b> 6+ Mesi</span></div>
+                <div class="discount-item"><div class="dot" style="background: #ffee58;"></div> <span><b class="d-yellow">D1:</b> 4+ Months</span></div>
+                <div class="discount-item"><div class="dot" style="background: #ff9800;"></div> <span><b class="d-orange">D2:</b> 6+ Months</span></div>
             </div>
         </div>
     </div>
@@ -401,11 +401,11 @@
                 <div class="type-selector">
                     <label>
                         <input type="radio" name="playlist-${i}" value="new" checked onchange="calculateCost()">
-                        <span>Nuovo Lancio</span>
+                        <span>New Launch</span>
                     </label>
                     <label>
                         <input type="radio" name="playlist-${i}" value="renew" onchange="calculateCost()">
-                        <span>Rinnovo</span>
+                        <span>Renewal</span>
                     </label>
                 </div>
             `;
@@ -464,17 +464,17 @@
                 }
 
                 breakdown += `<div class="price-item">
-                    <span style="color:var(--text-dim)">Mese ${m}</span> ${priceDisplay}
+                    <span style="color:var(--text-dim)">Month ${m}</span> ${priceDisplay}
                 </div>`;
                 playlistCost += cost;
             }
 
-            breakdown += `<div style="text-align:right; font-weight:700; margin-top:8px; font-size: 0.85rem; color: var(--accent);">Subtotale: €${playlistCost}</div></div>`;
+            breakdown += `<div style="text-align:right; font-weight:700; margin-top:8px; font-size: 0.85rem; color: var(--accent);">Subtotal: €${playlistCost}</div></div>`;
             detailsHtml += breakdown;
             totalCost += playlistCost;
         }
 
-        document.getElementById("result").innerText = `€ ${totalCost.toLocaleString('it-IT', {minimumFractionDigits: 2})}`;
+        document.getElementById("result").innerText = `€ ${totalCost.toLocaleString('en-IE', {minimumFractionDigits: 2})}`;
         document.getElementById("summary-info").innerHTML = detailsHtml;
     }
 
