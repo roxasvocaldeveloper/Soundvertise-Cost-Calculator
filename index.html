@@ -3,352 +3,450 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Cost Calculator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <title>Cost Calculator | Soundvertise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --accent: #9d7cff;
+            --accent-glow: rgba(157, 124, 255, 0.4);
+            --bg-dark: #0a0a0a;
+            --panel-bg: rgba(20, 20, 20, 0.7);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-dim: #a1a1a1;
+            --card-inner: rgba(255, 255, 255, 0.03);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
         body {
-            background: url('Fabhertz_aesthetic_background_wallpaper_for_a_website_landing_p_bbf86bfd-9b57-4afc-b01e-4da55c2315f3.jpeg') no-repeat center center fixed;
+            background: #000 url('Fabhertz_aesthetic_background_wallpaper_for_a_website_landing_p_bbf86bfd-9b57-4afc-b01e-4da55c2315f3.jpeg') no-repeat center center fixed;
             background-size: cover;
-            color: #ffffff;
+            color: var(--text-main);
             font-family: 'Inter', sans-serif;
             margin: 0;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            text-align: center;
-            padding-top: 30px;
+            min-height: 100vh;
+            overflow: hidden;
         }
-        header img {
-            max-width: 250px;
-            margin-bottom: 30px;
-        }
-        .container {
+
+        .main-wrapper {
+            width: 95%;
+            max-width: 1250px;
+            height: 92vh;
             display: flex;
-            justify-content: flex-start;
-            gap: 30px;
-            width: 90%;
-            max-width: 1200px;
-            flex-wrap: nowrap;
+            flex-direction: column;
+            gap: 20px;
         }
-        .calculator, .summary, .discount-panel {
-            padding: 20px;
-            background: rgba(26, 26, 26, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-            max-width: 350px;
-            width: 100%;
+
+        header {
             text-align: center;
+            flex-shrink: 0;
         }
-        h1, h2 {
-            font-size: 2em;
+
+        header img {
+            max-width: 180px;
+            height: auto;
+            filter: brightness(1.1);
+            margin-bottom: 10px;
+        }
+
+        .main-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin: 0 0 10px 0;
+            background: linear-gradient(to bottom, #fff, #aaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: capitalize;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 380px 1fr 300px;
+            gap: 20px;
+            height: 100%;
+            min-height: 0;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(30px) saturate(150%);
+            -webkit-backdrop-filter: blur(30px) saturate(150%);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            transition: transform 0.3s ease;
+        }
+
+        h2 {
+            font-size: 0.9rem;
+            margin: 0 0 24px 0;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 16px;
+            background: var(--accent);
+            border-radius: 10px;
+        }
+
+        .scrollable-content {
+            overflow-y: auto;
+            flex-grow: 1;
+            padding-right: 12px;
             margin-bottom: 20px;
         }
-        h3 {
-            margin-bottom: 10px;
-            font-size: 1.3em;
+
+        .info-note {
+            background: rgba(157, 124, 255, 0.1);
+            border: 1px solid rgba(157, 124, 255, 0.3);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 24px;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: #d1c4ff;
         }
-        label {
-            font-size: 1.2em;
-        }
-        .playlist-group {
-            margin: 10px 0;
-            text-align: center;
-        }
-        .playlist-group label {
+
+        .info-note b {
+            color: var(--accent);
             display: block;
-            margin-top: 10px;
-            font-weight: bold;
-            text-align: center;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
-        .playlist-group .campaign-option {
-            font-size: 0.9em;
-            font-weight: normal;
+
+        label {
+            display: block;
+            margin: 20px 0 8px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
-        input[type="radio"] {
-            margin-right: 5px;
-        }
-        select, button {
-            font-size: 1em;
-            margin: 10px 0;
-            padding: 10px;
-            width: 90%;
-            border: none;
-            border-radius: 5px;
-        }
+
         select {
-            background-color: #262626;
-            color: #ffffff;
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 14px;
+            background: #141414;
+            color: white;
+            border: 1px solid var(--border);
+            outline: none;
+            font-size: 0.95rem;
+            appearance: none;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
         }
-        button {
-            background-color: #ffffff;
-            color: #000000;
-            font-weight: bold;
+
+        select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px var(--accent-glow);
+        }
+
+        .playlist-card {
+            background: var(--card-inner);
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 24px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .playlist-header {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            letter-spacing: 0.05em;
+        }
+
+        .type-selector {
+            display: flex;
+            background: rgba(0,0,0,0.3);
+            padding: 5px;
+            border-radius: 12px;
+            gap: 5px;
+        }
+
+        .type-selector label {
+            flex: 1;
+            margin: 0;
             cursor: pointer;
         }
-        button:hover {
-            background-color: #9575cd;
-            color: #ffffff;
-        }
-        .result {
-            margin-top: 20px;
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #ffffff;
-        }
-        .summary-list {
-            font-size: 1em;
-            line-height: 1.5;
-            white-space: normal;
-            text-align: left;
-        }
-        /* Color classes for playlist discounts */
-        .discount-blue { color: #00BFFF; }   /* D1 playlist (>1) */
-        .discount-fuchsia { color: #FF00FF; }/* D2 playlist (>3) */
-        .discount-pink { color: #FFC0CB; }   /* D3 playlist (>6) */
 
-        /* Months discount colors */
-        .discount-yellow { color: #FFFF00; } /* D1 months (>3) */
-        .discount-orange { color: #FFA500; } /* D2 months (>5) */
+        .type-selector input { display: none; }
 
-        .calculator { order: 1; }
-        .summary { order: 2; text-align: center; }
-        .discount-panel { order: 3; text-align: center; }
+        .type-selector span {
+            display: block;
+            padding: 10px;
+            border-radius: 9px;
+            font-size: 0.8rem;
+            text-align: center;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-dim);
+            font-weight: 600;
+        }
 
-        .disclaimer {
-            font-size: 0.9em;
-            font-style: italic;
-            margin-top: 20px;
-            color: #ffffff;
+        .type-selector input:checked + span {
+            background: var(--accent);
+            color: white;
+        }
+
+        .playlist-row {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .playlist-row:last-child { border-bottom: none; }
+
+        .row-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .total-container {
+            margin-top: auto;
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(157, 124, 255, 0.1), rgba(157, 124, 255, 0.02));
+            border-radius: 24px;
+            text-align: center;
+            border: 1px solid var(--accent);
+        }
+
+        .total-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 8px; color: var(--accent); font-weight: 700; }
+        .total-value { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.02em; }
+
+        .d-blue { color: #59dbff; }
+        .d-fuchsia { color: #ff66ff; }
+        .d-pink { color: #ff99cc; }
+        .d-yellow { color: #ffee58; }
+        .d-orange { color: #ff9800; }
+
+        .discount-item {
+            font-size: 0.8rem;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-dim);
+        }
+
+        .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+        @media (max-width: 1100px) {
+            body { overflow-y: auto; }
+            .main-wrapper { height: auto; padding: 40px 0; }
+            .container { grid-template-columns: 1fr; height: auto; }
+            .panel { height: auto; min-height: 600px; }
+            .main-title { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
+
+<div class="main-wrapper">
     <header>
-        <img src="LOGO WHITE NO BACKGROUND .png" alt="Soundvertise Logo">
+        <img src="LOGO WHITE NO BACKGROUND .png" alt="Soundvertise">
+        <h1 class="main-title">Service Cost Calculator</h1>
     </header>
+
     <div class="container">
-        <div id="content" class="calculator">
-            <h1>Service Cost Calculator</h1>
-            <div id="playlist-options"></div>
-            <label for="num-playlist">Number Of Playlists:</label>
-            <select id="num-playlist" onchange="updatePlaylists()">
-                <option value="1" selected>1 Playlist</option>
-                <option value="2">2 Playlists</option>
-                <option value="3">3 Playlists</option>
-                <option value="4">4 Playlists</option>
-                <option value="5">5 Playlists</option>
-                <option value="6">6 Playlists</option>
-                <option value="7">7 Playlists</option>
-                <option value="8">8 Playlists</option>
-                <!-- ADDED OPTIONS FOR 9 AND 10 PLAYLISTS -->
-                <option value="9">9 Playlists</option>
-                <option value="10">10 Playlists</option>
-            </select>
+        <!-- STEP 1: CONFIG -->
+        <div class="panel">
+            <h2>Configurator</h2>
+            <div class="scrollable-content">
+                <div class="info-note">
+                    <b>Setup Fee Discount</b>
+                    If Playlist 1 is already active and optimized, we apply a €50 discount on the initial setup fee.
+                </div>
 
-            <label for="durata">Promotion Duration (Months):</label>
-            <select id="durata">
-                <option value="1" selected>1 month</option>
-                <option value="2">2 months</option>
-                <option value="3">3 months</option>
-                <option value="4">4 months</option>
-                <option value="5">5 months</option>
-                <option value="6">6 months</option>
-            </select>
+                <label>Number of Playlists</label>
+                <select id="num-playlist" onchange="updatePlaylists()">
+                    <option value="1">1 Playlist</option>
+                    <option value="2">2 Playlists</option>
+                    <option value="3">3 Playlists</option>
+                    <option value="4">4 Playlists</option>
+                    <option value="5">5 Playlists</option>
+                    <option value="6">6 Playlists</option>
+                    <option value="7">7 Playlists</option>
+                    <option value="8">8 Playlists</option>
+                    <option value="9">9 Playlists</option>
+                    <option value="10">10 Playlists</option>
+                </select>
 
-            <button onclick="calculateCost()">Calculate Cost</button>
-            <div class="result" id="result"></div>
+                <label>Promo Duration</label>
+                <select id="durata" onchange="calculateCost()">
+                    <option value="1">1 Month</option>
+                    <option value="2">2 Months</option>
+                    <option value="3">3 Months</option>
+                    <option value="4">4 Months</option>
+                    <option value="5">5 Months</option>
+                    <option value="6">6 Months</option>
+                </select>
+
+                <div id="playlist-options"></div>
+            </div>
         </div>
 
-        <div class="summary">
-            <h2>Summarize</h2>
-            <div id="summary-info" class="summary-list"></div>
+        <!-- STEP 2: SUMMARY -->
+        <div class="panel">
+            <h2>ESTIMATE COST</h2>
+            <div id="summary-info" class="scrollable-content">
+                <!-- Content generated automatically -->
+            </div>
+            <div class="total-container">
+                <div class="total-label">Total Service Cost</div>
+                <div class="total-value" id="result">€ 0.00</div>
+            </div>
         </div>
 
-        <div class="discount-panel">
-            <h2>Discounts</h2>
-            <h3>Number Of Playlists</h3>
-            <p><span class="discount-blue">Discount 1:</span> More than 1 playlist</p>
-            <p><span class="discount-fuchsia">Discount 2:</span> More than 3 playlists</p>
-            <p><span class="discount-pink">Discount 3:</span> More than 6 playlists</p>
-
-            <h3>Months</h3>
-            <p><span class="discount-yellow">Discount 1:</span> More than 3 months</p>
-            <p><span class="discount-orange">Discount 2:</span> More than 5 months</p>
-
-            <div class="disclaimer">
-                If Playlist 1 is already active and optimized, we offer a €50 discount on the activation fee
+        <!-- STEP 3: DISCOUNTS -->
+        <div class="panel">
+            <h2>DISCOUNTS</h2>
+            <div class="scrollable-content">
+                <div style="font-weight: 700; font-size: 0.7rem; margin-bottom: 15px; letter-spacing: 0.1em; color: var(--accent);">VOLUME DISCOUNTS</div>
+                <div class="discount-item"><div class="dot" style="background: #59dbff;"></div> <span><b class="d-blue">D1:</b> 2+ Playlists</span></div>
+                <div class="discount-item"><div class="dot" style="background: #ff66ff;"></div> <span><b class="d-fuchsia">D2:</b> 4+ Playlists</span></div>
+                <div class="discount-item"><div class="dot" style="background: #ff99cc;"></div> <span><b class="d-pink">D3:</b> 7+ Playlists</span></div>
+                
+                <div style="font-weight: 700; font-size: 0.7rem; margin: 30px 0 15px; letter-spacing: 0.1em; color: var(--accent);">MULTIPLE MONTH DISCOUNTS</div>
+                <div class="discount-item"><div class="dot" style="background: #ffee58;"></div> <span><b class="d-yellow">D1:</b> 4+ Months</span></div>
+                <div class="discount-item"><div class="dot" style="background: #ff9800;"></div> <span><b class="d-orange">D2:</b> 6+ Months</span></div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        const priceTable = {
-            1: { new_campaign:200, renew_2_mesi:100, renew_3_mesi:100, renew_4_mesi:80, renew_5_mesi:80, renew_6_mesi:70 },
-            2: { new_campaign:100, renew_2_mesi:50,  renew_3_mesi:50,  renew_4_mesi:40, renew_5_mesi:40, renew_6_mesi:35 },
-            3: { new_campaign:100, renew_2_mesi:50,  renew_3_mesi:50,  renew_4_mesi:40, renew_5_mesi:40, renew_6_mesi:35 },
-            4: { new_campaign:80,  renew_2_mesi:40,  renew_3_mesi:40,  renew_4_mesi:35, renew_5_mesi:35, renew_6_mesi:30 },
-            5: { new_campaign:80,  renew_2_mesi:40,  renew_3_mesi:40,  renew_4_mesi:35, renew_5_mesi:35, renew_6_mesi:30 },
-            6: { new_campaign:80,  renew_2_mesi:40,  renew_3_mesi:40,  renew_4_mesi:35, renew_5_mesi:35, renew_6_mesi:30 },
-            7: { new_campaign:65,  renew_2_mesi:35,  renew_3_mesi:35,  renew_4_mesi:30, renew_5_mesi:30, renew_6_mesi:25 },
-            8: { new_campaign:65,  renew_2_mesi:35,  renew_3_mesi:35,  renew_4_mesi:30, renew_5_mesi:30, renew_6_mesi:25 },
-            // ADDED SAME PRICE DATA FOR 9 AND 10 AS FOR 7 AND 8
-            9: { new_campaign:65,  renew_2_mesi:35,  renew_3_mesi:35,  renew_4_mesi:30, renew_5_mesi:30, renew_6_mesi:25 },
-            10: { new_campaign:65, renew_2_mesi:35,  renew_3_mesi:35,  renew_4_mesi:30, renew_5_mesi:30, renew_6_mesi:25 },
-        };
+<script>
+    const priceTable = {
+        1: { new_campaign:200, renew_2_mesi:100, renew_3_mesi:100, renew_4_mesi:80, renew_5_mesi:80, renew_6_mesi:70 },
+        2: { new_campaign:100, renew_2_mesi:50,  renew_3_mesi:50,  renew_4_mesi:40, renew_5_mesi:40, renew_6_mesi:35 },
+        3: { new_campaign:100, renew_2_mesi:50,  renew_3_mesi:50,  renew_4_mesi:40, renew_5_mesi:40, renew_6_mesi:35 },
+        4: { new_campaign:80,  renew_2_mesi:40,  renew_3_mesi:40,  renew_4_mesi:35, renew_5_mesi:35, renew_6_mesi:30 },
+        5: { new_campaign:80,  renew_2_mesi:40,  renew_3_mesi:40,  renew_4_mesi:35, renew_5_mesi:35, renew_6_mesi:30 },
+        6: { new_campaign:80,  renew_2_mesi:40,  renew_3_mesi:40,  renew_4_mesi:35, renew_5_mesi:35, renew_6_mesi:30 },
+        7: { new_campaign:65,  renew_2_mesi:35,  renew_3_mesi:35,  renew_4_mesi:30, renew_5_mesi:30, renew_6_mesi:25 },
+        8: { new_campaign:65,  renew_2_mesi:35,  renew_3_mesi:35,  renew_4_mesi:30, renew_5_mesi:30, renew_6_mesi:25 },
+        9: { new_campaign:65,  renew_2_mesi:35,  renew_3_mesi:35,  renew_4_mesi:30, renew_5_mesi:30, renew_6_mesi:25 },
+        10: { new_campaign:65, renew_2_mesi:35,  renew_3_mesi:35,  renew_4_mesi:30, renew_5_mesi:30, renew_6_mesi:25 },
+    };
 
-        function updatePlaylists() {
-            const numPlaylists = parseInt(document.getElementById("num-playlist").value);
-            const playlistOptions = document.getElementById("playlist-options");
-            playlistOptions.innerHTML = '';
+    function updatePlaylists() {
+        const numPlaylists = parseInt(document.getElementById("num-playlist").value);
+        const playlistOptions = document.getElementById("playlist-options");
+        playlistOptions.innerHTML = '';
 
-            for (let i = 1; i <= numPlaylists; i++) {
-                const div = document.createElement('div');
-                div.className = 'playlist-group';
-                div.innerHTML = `
-                    <label>Playlist ${i}:</label>
-                    <label class="campaign-option"><input type="radio" name="playlist-${i}" value="new" checked> New Campaign</label>
-                    <label class="campaign-option"><input type="radio" name="playlist-${i}" value="renew"> Renew</label>
-                `;
-                playlistOptions.appendChild(div);
-            }
+        for (let i = 1; i <= numPlaylists; i++) {
+            const div = document.createElement('div');
+            div.className = 'playlist-card';
+            div.innerHTML = `
+                <div class="playlist-header">PLAYLIST ${i}</div>
+                <div class="type-selector">
+                    <label>
+                        <input type="radio" name="playlist-${i}" value="new" checked onchange="calculateCost()">
+                        <span>New Launch</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="playlist-${i}" value="renew" onchange="calculateCost()">
+                        <span>Renewal</span>
+                    </label>
+                </div>
+            `;
+            playlistOptions.appendChild(div);
         }
+        calculateCost();
+    }
 
-        function calculateCost() {
-            const numPlaylists = parseInt(document.getElementById("num-playlist").value);
-            const duration = parseInt(document.getElementById("durata").value);
+    function calculateCost() {
+        const numPlaylists = parseInt(document.getElementById("num-playlist").value);
+        const duration = parseInt(document.getElementById("durata").value);
 
-            let playlistD1 = numPlaylists > 1; 
-            let playlistD2 = numPlaylists > 3; 
-            let playlistD3 = numPlaylists > 6; 
+        let playlistD1 = numPlaylists > 1; 
+        let playlistD2 = numPlaylists > 3; 
+        let playlistD3 = numPlaylists > 6; 
 
-            let monthsD1 = duration > 3;
-            let monthsD2 = duration > 5; // D2 months if >5 months
+        let monthsD1 = duration > 3;
+        let monthsD2 = duration > 5;
 
-            let totalCost = 0;
-            let details = '';
+        let totalCost = 0;
+        let detailsHtml = '';
 
-            for (let i = 1; i <= numPlaylists; i++) {
-                const campaignType = document.querySelector(`input[name="playlist-${i}"]:checked`).value;
-                // Retrieve the relevant price table based on the playlist number
-                const pTable = priceTable[i];
+        for (let i = 1; i <= numPlaylists; i++) {
+            const radio = document.querySelector(`input[name="playlist-${i}"]:checked`);
+            if (!radio) continue;
+            
+            const campaignType = radio.value;
+            const pTable = priceTable[i];
 
-                let playlistCost = 0;
-                let playlistLabel = `Playlist ${i}:`;
-                if (playlistD3 && i >= 7) {
-                    playlistLabel = `<span class="discount-pink">Playlist ${i}:</span>`;
-                } else if (playlistD2 && i >= 4) {
-                    playlistLabel = `<span class="discount-fuchsia">Playlist ${i}:</span>`;
-                } else if (playlistD1 && i >= 2) {
-                    playlistLabel = `<span class="discount-blue">Playlist ${i}:</span>`;
-                }
+            let playlistCost = 0;
+            let playlistColor = "";
+            if (playlistD3 && i >= 7) playlistColor = "d-pink";
+            else if (playlistD2 && i >= 4) playlistColor = "d-fuchsia";
+            else if (playlistD1 && i >= 2) playlistColor = "d-blue";
 
-                let breakdown = `<div>${playlistLabel}<br>`;
-                const isRenew = (campaignType === 'renew');
+            let breakdown = `<div class="playlist-row"><span class="row-title ${playlistColor}">Playlist ${i}</span>`;
+            const isRenew = (campaignType === 'renew');
 
-                function getMonthLabel(m) {
-                    let monthLabel = `Month ${m}:`;
-                    if (monthsD2) {
-                        // Discount 2 months: all months in orange
-                        if (isRenew) {
-                            // Renew: all months orange
-                            monthLabel = `<span class="discount-orange">Month ${m}:</span>`;
-                        } else {
-                            // New: month 1 not colored, from 2 on orange
-                            if (m === 1) {
-                                monthLabel = `Month ${m}:`;
-                            } else {
-                                monthLabel = `<span class="discount-orange">Month ${m}:</span>`;
-                            }
-                        }
-                    } else if (monthsD1) {
-                        // Discount 1 months: if Renew all yellow, if New only from month 2
-                        if (isRenew) {
-                            monthLabel = `<span class="discount-yellow">Month ${m}:</span>`;
-                        } else {
-                            if (m === 1) {
-                                monthLabel = `Month ${m}:`;
-                            } else {
-                                monthLabel = `<span class="discount-yellow">Month ${m}:</span>`;
-                            }
-                        }
-                    }
-                    return monthLabel;
-                }
+            for (let m = 1; m <= duration; m++) {
+                let mColor = "";
+                if (monthsD2 && (isRenew || m > 1)) mColor = "d-orange";
+                else if (monthsD1 && (isRenew || m > 1)) mColor = "d-yellow";
 
-                if (campaignType === 'new') {
-                    if (duration === 1) {
-                        playlistCost = pTable.new_campaign;
-                        breakdown += `&nbsp;&nbsp;Month 1: €${pTable.new_campaign}<br>`;
-                    } else {
-                        // First month is "new_campaign"
-                        let month1Label = getMonthLabel(1);
-                        breakdown += `&nbsp;&nbsp;${month1Label} €${pTable.new_campaign}<br>`;
-                        playlistCost += pTable.new_campaign;
-
-                        // Remaining months are "renew_duration_mesi"
-                        const renewKey = `renew_${duration}_mesi`;
-                        const monthlyCost = pTable[renewKey];
-                        for (let m = 2; m <= duration; m++) {
-                            let monthLabel = getMonthLabel(m);
-                            breakdown += `&nbsp;&nbsp;${monthLabel} €${monthlyCost}<br>`;
-                            playlistCost += monthlyCost;
-                        }
-                    }
+                let cost = 0;
+                if (m === 1) {
+                    cost = isRenew ? pTable.renew_2_mesi : pTable.new_campaign;
                 } else {
-                    // Renew
-                    if (duration === 1) {
-                        const monthlyCost = pTable.renew_2_mesi;
-                        breakdown += `&nbsp;&nbsp;Month 1: €${monthlyCost}<br>`;
-                        playlistCost = monthlyCost;
-                    } else {
-                        const renewKey = `renew_${duration}_mesi`;
-                        const monthlyCost = pTable[renewKey];
-                        for (let m = 1; m <= duration; m++) {
-                            let monthLabel = getMonthLabel(m);
-                            breakdown += `&nbsp;&nbsp;${monthLabel} €${monthlyCost}<br>`;
-                            playlistCost += monthlyCost;
-                        }
-                    }
+                    cost = pTable[`renew_${duration}_mesi`];
                 }
 
-                breakdown += `&nbsp;&nbsp;Total: €${playlistCost}</div><br>`;
-                details += breakdown;
-                totalCost += playlistCost;
+                breakdown += `<div style="font-size:0.85rem; display:flex; justify-content:space-between; margin: 4px 0;">
+                    <span style="color:var(--text-dim)">Month ${m}</span> <span class="${mColor}" style="font-weight:600;">€${cost}</span>
+                </div>`;
+                playlistCost += cost;
             }
 
-            let discountSummary = "";
-            const anyPlaylistDiscount = playlistD1 || playlistD2 || playlistD3;
-            const anyMonthsDiscount = monthsD1 || monthsD2;
-
-            if (anyPlaylistDiscount || anyMonthsDiscount) {
-                discountSummary += "Discount Applied:<br>";
-
-                if (playlistD1) {
-                    discountSummary += `<span class="discount-blue">Playlist Discount 1 (More than 1 playlist)</span><br>`;
-                }
-                if (playlistD2) {
-                    discountSummary += `<span class="discount-fuchsia">Playlist Discount 2 (More than 3 playlists)</span><br>`;
-                }
-                if (playlistD3) {
-                    discountSummary += `<span class="discount-pink">Playlist Discount 3 (More than 6 playlists)</span><br>`;
-                }
-                if (monthsD1) {
-                    discountSummary += `<span class="discount-yellow">Months Discount 1 (More than 3 months)</span><br>`;
-                }
-                if (monthsD2) {
-                    discountSummary += `<span class="discount-orange">Months Discount 2 (More than 5 months)</span><br>`;
-                }
-            } else {
-                discountSummary += "No Discounts Applied.";
-            }
-
-            details += `<div>${discountSummary}</div>`;
-
-            document.getElementById("result").innerText = `Total Cost: €${totalCost}`;
-            document.getElementById("summary-info").innerHTML = details;
+            breakdown += `<div style="text-align:right; font-weight:700; margin-top:8px; font-size: 0.95rem; color: var(--accent);">Subtotal: €${playlistCost}</div></div>`;
+            detailsHtml += breakdown;
+            totalCost += playlistCost;
         }
 
-        updatePlaylists();
-    </script>
+        document.getElementById("result").innerText = `€ ${totalCost.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+        document.getElementById("summary-info").innerHTML = detailsHtml;
+    }
+
+    // Initial load
+    updatePlaylists();
+</script>
+
 </body>
 </html>
