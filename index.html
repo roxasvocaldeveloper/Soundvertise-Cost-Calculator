@@ -15,6 +15,7 @@
             --text-main: #ffffff;
             --text-dim: #a1a1a1;
             --card-inner: rgba(255, 255, 255, 0.03);
+            --discount-red: #ff4d4d;
         }
 
         * {
@@ -30,16 +31,16 @@
             margin: 0;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Spostato in alto invece che al centro */
+            align-items: flex-start;
             min-height: 100vh;
-            padding-top: 2vh; /* Margine minimo superiore */
+            padding-top: 2vh;
             overflow: hidden;
         }
 
         .main-wrapper {
             width: 95%;
             max-width: 1250px;
-            height: 88vh; /* Leggermente ridotto per non toccare il fondo */
+            height: 88vh;
             display: flex;
             flex-direction: column;
             gap: 15px;
@@ -52,7 +53,7 @@
         }
 
         header img {
-            max-width: 160px; /* Leggermente più piccolo */
+            max-width: 160px;
             height: auto;
             filter: brightness(1.1);
             margin-bottom: 5px;
@@ -232,6 +233,22 @@
             display: block;
         }
 
+        .price-item {
+            font-size: 0.82rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 4px 0;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: var(--text-dim);
+            font-size: 0.75rem;
+            margin-right: 8px;
+            opacity: 0.6;
+        }
+
         .total-container {
             margin-top: auto;
             padding: 20px;
@@ -350,6 +367,12 @@
 </div>
 
 <script>
+    // Standard reference for base pricing to show discounts
+    const basePrice = {
+        new: 200,
+        renew: 100
+    };
+
     const priceTable = {
         1: { new_campaign:200, renew_2_mesi:100, renew_3_mesi:100, renew_4_mesi:80, renew_5_mesi:80, renew_6_mesi:70 },
         2: { new_campaign:100, renew_2_mesi:50,  renew_3_mesi:50,  renew_4_mesi:40, renew_5_mesi:40, renew_6_mesi:35 },
@@ -425,14 +448,22 @@
                 else if (monthsD1 && (isRenew || m > 1)) mColor = "d-yellow";
 
                 let cost = 0;
+                let originalBase = (m === 1) ? (isRenew ? basePrice.renew : basePrice.new) : basePrice.renew;
+
                 if (m === 1) {
                     cost = isRenew ? pTable.renew_2_mesi : pTable.new_campaign;
                 } else {
                     cost = pTable[`renew_${duration}_mesi`];
                 }
 
-                breakdown += `<div style="font-size:0.82rem; display:flex; justify-content:space-between; margin: 3px 0;">
-                    <span style="color:var(--text-dim)">Month ${m}</span> <span class="${mColor}" style="font-weight:600;">€${cost}</span>
+                // Logic to show strike-through only if there is a real discount
+                let priceDisplay = `<span class="${mColor}" style="font-weight:600;">€${cost}</span>`;
+                if (cost < originalBase) {
+                    priceDisplay = `<div><span class="original-price">€${originalBase}</span> <span class="${mColor}" style="font-weight:600;">€${cost}</span></div>`;
+                }
+
+                breakdown += `<div class="price-item">
+                    <span style="color:var(--text-dim)">Month ${m}</span> ${priceDisplay}
                 </div>`;
                 playlistCost += cost;
             }
