@@ -39,8 +39,8 @@
 
         .main-wrapper {
             width: 95%;
-            max-width: 1400px; /* Slightly wider to accommodate side panels */
-            height: 88vh; /* Lifted further from bottom */
+            max-width: 1400px;
+            height: 88vh; 
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -78,7 +78,6 @@
 
         .container {
             display: grid;
-            /* Balanced ratio: Side panels approx 28%, Center approx 44% */
             grid-template-columns: 1.1fr 1.8fr 1.1fr; 
             gap: 20px;
             height: 100%;
@@ -263,7 +262,6 @@
         .total-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 4px; color: var(--accent); font-weight: 700; }
         .total-value { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; }
 
-        /* Discount Colors */
         .d-blue { color: #59dbff; }
         .d-fuchsia { color: #ff66ff; }
         .d-pink { color: #ff99cc; }
@@ -446,6 +444,7 @@
 
             for (let m = 1; m <= duration; m++) {
                 let mColor = "";
+                // Apply month discount if it's a renewal OR if it's month 2+ of a new launch
                 if (monthsD2 && (isRenew || m > 1)) mColor = "d-orange";
                 else if (monthsD1 && (isRenew || m > 1)) mColor = "d-yellow";
 
@@ -453,7 +452,12 @@
                 let originalBase = (m === 1) ? (isRenew ? basePrice.renew : basePrice.new) : basePrice.renew;
 
                 if (m === 1) {
-                    cost = isRenew ? pTable.renew_2_mesi : pTable.new_campaign;
+                    // Logic update: for renewals in month 1, we now check the duration discount directly
+                    if (isRenew) {
+                        cost = pTable[`renew_${duration}_mesi`];
+                    } else {
+                        cost = pTable.new_campaign;
+                    }
                 } else {
                     cost = pTable[`renew_${duration}_mesi`];
                 }
