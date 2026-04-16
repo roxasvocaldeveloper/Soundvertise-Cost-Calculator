@@ -374,16 +374,16 @@
     };
 
     const priceTable = {
-        1: { new_campaign:200, renew_2_mesi:100, renew_3_mesi:100, renew_4_mesi:80, renew_5_mesi:80, renew_6_mesi:70 },
-        2: { new_campaign:100, renew_2_mesi:50,  renew_3_mesi:50,  renew_4_mesi:40, renew_5_mesi:40, renew_6_mesi:35 },
-        3: { new_campaign:100, renew_2_mesi:50,  renew_3_mesi:50,  renew_4_mesi:40, renew_5_mesi:40, renew_6_mesi:35 },
-        4: { new_campaign:80,  renew_2_mesi:40,  renew_3_mesi:40,  renew_4_mesi:35, renew_5_mesi:35, renew_6_mesi:30 },
-        5: { new_campaign:80,  renew_2_mesi:40,  renew_3_mesi:40,  renew_4_mesi:35, renew_5_mesi:35, renew_6_mesi:30 },
-        6: { new_campaign:80,  renew_2_mesi:40,  renew_3_mesi:40,  renew_4_mesi:35, renew_5_mesi:35, renew_6_mesi:30 },
-        7: { new_campaign:65,  renew_2_mesi:35,  renew_3_mesi:35,  renew_4_mesi:30, renew_5_mesi:30, renew_6_mesi:25 },
-        8: { new_campaign:65,  renew_2_mesi:35,  renew_3_mesi:35,  renew_4_mesi:30, renew_5_mesi:30, renew_6_mesi:25 },
-        9: { new_campaign:65,  renew_2_mesi:35,  renew_3_mesi:35,  renew_4_mesi:30, renew_5_mesi:30, renew_6_mesi:25 },
-        10: { new_campaign:65, renew_2_mesi:35,  renew_3_mesi:35,  renew_4_mesi:30, renew_5_mesi:30, renew_6_mesi:25 },
+        1: { new_campaign:200, renew_1_mesi:100, renew_2_mesi:100, renew_3_mesi:100, renew_4_mesi:80, renew_5_mesi:80, renew_6_mesi:70 },
+        2: { new_campaign:100, renew_1_mesi:50,  renew_2_mesi:50,  renew_3_mesi:50,  renew_4_mesi:40, renew_5_mesi:40, renew_6_mesi:35 },
+        3: { new_campaign:100, renew_1_mesi:50,  renew_2_mesi:50,  renew_3_mesi:50,  renew_4_mesi:40, renew_5_mesi:40, renew_6_mesi:35 },
+        4: { new_campaign:80,  renew_1_mesi:40,  renew_2_mesi:40,  renew_3_mesi:40,  renew_4_mesi:35, renew_5_mesi:35, renew_6_mesi:30 },
+        5: { new_campaign:80,  renew_1_mesi:40,  renew_2_mesi:40,  renew_3_mesi:40,  renew_4_mesi:35, renew_5_mesi:35, renew_6_mesi:30 },
+        6: { new_campaign:80,  renew_1_mesi:40,  renew_2_mesi:40,  renew_3_mesi:40,  renew_4_mesi:35, renew_5_mesi:35, renew_6_mesi:30 },
+        7: { new_campaign:65,  renew_1_mesi:35,  renew_2_mesi:35,  renew_3_mesi:35,  renew_4_mesi:30, renew_5_mesi:30, renew_6_mesi:25 },
+        8: { new_campaign:65,  renew_1_mesi:35,  renew_2_mesi:35,  renew_3_mesi:35,  renew_4_mesi:30, renew_5_mesi:30, renew_6_mesi:25 },
+        9: { new_campaign:65,  renew_1_mesi:35,  renew_2_mesi:35,  renew_3_mesi:35,  renew_4_mesi:30, renew_5_mesi:30, renew_6_mesi:25 },
+        10: { new_campaign:65, renew_1_mesi:35,  renew_2_mesi:35,  renew_3_mesi:35,  renew_4_mesi:30, renew_5_mesi:30, renew_6_mesi:25 },
     };
 
     function updatePlaylists() {
@@ -444,15 +444,15 @@
 
             for (let m = 1; m <= duration; m++) {
                 let mColor = "";
-                // Apply month discount if it's a renewal OR if it's month 2+ of a new launch
+                // Applica lo sconto mese se è un rinnovo OPPURE se è un mese successivo al primo per un nuovo lancio
                 if (monthsD2 && (isRenew || m > 1)) mColor = "d-orange";
                 else if (monthsD1 && (isRenew || m > 1)) mColor = "d-yellow";
 
                 let cost = 0;
                 let originalBase = (m === 1) ? (isRenew ? basePrice.renew : basePrice.new) : basePrice.renew;
 
+                // Calcolo costo specifico basato sulla durata selezionata
                 if (m === 1) {
-                    // Logic update: for renewals in month 1, we now check the duration discount directly
                     if (isRenew) {
                         cost = pTable[`renew_${duration}_mesi`];
                     } else {
